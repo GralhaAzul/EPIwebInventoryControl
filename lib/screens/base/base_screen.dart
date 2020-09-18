@@ -1,4 +1,4 @@
-import 'package:EPIwebInventoryControl/screens/QRcode/baixa_stoque_screen.dart';
+import 'package:EPIwebInventoryControl/screens/inventory_control/baixa_stoque_screen.dart';
 import 'package:flutter/material.dart';
 import 'package:get_it/get_it.dart';
 import 'package:mobx/mobx.dart';
@@ -19,9 +19,6 @@ class _BaseScreenState extends State<BaseScreen> {
   @override
   void initState() {
     super.initState();
-    /*Função mobx que observa a página selecionada no pageStore e 
-    * executa a função para alterar a pagina atravez do pageController;
-    */
     reaction((_) => pageStore.page, (page) => pageController.jumpToPage(page));
   }
 
