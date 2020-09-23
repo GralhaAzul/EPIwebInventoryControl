@@ -9,6 +9,14 @@ part of 'baixa_estoque_store.dart';
 // ignore_for_file: non_constant_identifier_names, unnecessary_brace_in_string_interps, unnecessary_lambdas, prefer_expression_function_bodies, lines_longer_than_80_chars, avoid_as, avoid_annotating_with_dynamic
 
 mixin _$BaixaEstoqueStore on _BaixaEstoqueStoreBase, Store {
+  Computed<List<String>> _$empresaSelectedComputed;
+
+  @override
+  List<String> get empresaSelected => (_$empresaSelectedComputed ??=
+          Computed<List<String>>(() => super.empresaSelected,
+              name: '_BaixaEstoqueStoreBase.empresaSelected'))
+      .value;
+
   final _$empresasAtom = Atom(name: '_BaixaEstoqueStoreBase.empresas');
 
   @override
@@ -58,7 +66,8 @@ mixin _$BaixaEstoqueStore on _BaixaEstoqueStoreBase, Store {
   String toString() {
     return '''
 empresas: ${empresas},
-selectedEmpresa: ${selectedEmpresa}
+selectedEmpresa: ${selectedEmpresa},
+empresaSelected: ${empresaSelected}
     ''';
   }
 }

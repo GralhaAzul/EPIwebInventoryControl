@@ -1,6 +1,7 @@
 import 'package:EPIwebInventoryControl/components/custom_drawer/custom_drawer.dart';
 import 'package:EPIwebInventoryControl/stores/baixa_estoque_store.dart';
 import 'package:find_dropdown/find_dropdown.dart';
+import 'package:flutter_mobx/flutter_mobx.dart';
 import 'package:qrscan/qrscan.dart' as scanner;
 import 'package:flutter/material.dart';
 
@@ -43,54 +44,58 @@ class BaixaStoqueScreen extends StatelessWidget {
                                 fontWeight: FontWeight.w700),
                             textAlign: TextAlign.center,
                           ),
-                          Padding(
-                            padding: const EdgeInsets.only(top: 15),
-                            child: FindDropdown(
-                              items: ["Solar Móveis", "Prolar", "Mobler"],
-                              label: 'Empresa',
-                              constraints: BoxConstraints.tightForFinite(),
-                              showClearButton: true,
-                              onChanged: print,
-                              showSearchBox: false,
-                              backgroundColor: Colors.grey[200],
-                              titleStyle: TextStyle(color: Colors.indigo[800]),
-                            ),
-                          ),
-                          Padding(
-                            padding: const EdgeInsets.only(top: 15),
-                            child: FindDropdown(
-                              items: [
-                                'Gralha Azul',
-                                'Matielo',
-                                'Solar 24',
-                                'Matriz'
-                              ],
-                              label: 'Filial',
-                              constraints: BoxConstraints.tightForFinite(),
-                              showClearButton: true,
-                              onChanged: print,
-                              showSearchBox: false,
-                              backgroundColor: Colors.grey[200],
-                              titleStyle: TextStyle(color: Colors.indigo[800]),
-                            ),
-                          ),
-                          Padding(
-                            padding: const EdgeInsets.only(top: 15),
-                            child: FindDropdown(
-                              items: ["Solar Móveis", "Prolar", "Mobler"],
-                              label: 'Local de Estoque',
-                              constraints: BoxConstraints.tightForFinite(),
-                              showClearButton: true,
-                              onChanged: print,
-                              showSearchBox: true,
-                              errorBuilder: (context, exception) {
-                                print(exception);
-                                return exception;
-                              },
-                              backgroundColor: Colors.grey[200],
-                              titleStyle: TextStyle(color: Colors.indigo[800]),
-                            ),
-                          ),
+                          Observer(builder: (_) {
+                            return Padding(
+                              padding: const EdgeInsets.only(top: 15),
+                              child: FindDropdown(
+                                items: baixaStore.empresas,
+                                label: 'Empresa',
+                                constraints: BoxConstraints.tightForFinite(),
+                                showClearButton: true,
+                                onChanged: baixaStore.setEmpresa,
+                                showSearchBox: false,
+                                backgroundColor: Colors.grey[200],
+                                titleStyle:
+                                    TextStyle(color: Colors.indigo[800]),
+                              ),
+                            );
+                          }),
+                          Observer(builder: (_) {
+                            return Padding(
+                              padding: const EdgeInsets.only(top: 15),
+                              child: FindDropdown(
+                                items: baixaStore.filiais,
+                                label: 'Filial',
+                                constraints: BoxConstraints.tightForFinite(),
+                                showClearButton: true,
+                                onChanged: baixaStore.setFilial,
+                                showSearchBox: false,
+                                backgroundColor: Colors.grey[200],
+                                titleStyle:
+                                    TextStyle(color: Colors.indigo[800]),
+                              ),
+                            );
+                          }),
+                          Observer(builder: (_) {
+                            return Padding(
+                              padding: const EdgeInsets.only(top: 15),
+                              child: FindDropdown(
+                                items: baixaStore.locaisEstoque,
+                                label: 'Local de Estoque',
+                                constraints: BoxConstraints.tightForFinite(),
+                                showClearButton: true,
+                                onChanged: baixaStore.setLocalEstoque,
+                                showSearchBox: true,
+                                errorBuilder: (context, exception) {
+                                  print(exception);
+                                  return exception;
+                                },
+                                backgroundColor: Colors.grey[200],
+                                titleStyle:
+                                    TextStyle(color: Colors.indigo[800]),
+                              ),
+                            );
+                          }),
                           Container(
                             height: 55,
                             child: TextField(
